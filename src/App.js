@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import ProtectedRoute from "./components/ProtectedRoute";
-import Footer from './components/Footer';
+import Footer from './components/Footer.tsx';
 import Home from './layout/Home';
 import Login from './layout/Login';
 import AdminPanel from './layout/admin/AdminPanel';
