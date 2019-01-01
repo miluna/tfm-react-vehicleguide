@@ -8,10 +8,14 @@ import './styles/admin.css';
 import './styles/main.css';
 import './styles/product.css';
 
-
-ReactDOM.render(
-  <BrowserRouter>
-      <App />
-  </BrowserRouter>,
-  document.getElementById('root')
-);
+function doRender() {
+  ReactDOM.render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+    document.getElementById('root')
+  );
+  
+}
+window.onload = doRender;
+module.hot.accept(doRender);
