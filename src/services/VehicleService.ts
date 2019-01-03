@@ -1,41 +1,94 @@
 // VEHICLES CRUD
 import axios from "axios";
-import config from "../config";
+import config from "../config.json";
 import {getAuthHeader, getDefaultHeaders} from "./AuthService";
 import Vehicle from "../models/Vehicle";
+import CrudService from "./CrudService.js";
+import Engine from "../models/Engine.js";
+import Brand from "../models/Brand.js";
 
-export const getVehicle : Function = (id : number) => {
-    const headers = getDefaultHeaders();
-    return axios.get(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers})
-};
+export default class VehicleService implements CrudService<Vehicle> {
+    
+    async getAll(): Promise<Vehicle[]> {
+        const headers = getDefaultHeaders();
+        let results = [];
+        try {
+            const AxiosResponse = 
+                await axios.get(`${config.REST_BASE_URL}/vehicles`, {headers: headers})
+            results = AxiosResponse.data;
+        } catch (e) {
+            console.log(e);
+        }
+        return results;
+    }    
+    
+    async getOne(id: number): Promise<Vehicle> {
+        const headers = getDefaultHeaders();
+        let result : Vehicle = new Vehicle();
+        try {
+            result = await axios.get(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers});
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    }
+    
+    async createOne(vehicle: Vehicle): Promise<Vehicle> {
+        const headers = getAuthHeader();
+        let result : Vehicle = new Vehicle();
+        try {
+            result = await axios.post(`${config.REST_BASE_URL}/vehicles`, vehicle, {headers: headers});
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    }
+    
+    async updateOne(id: number, vehicle: Vehicle): Promise<Vehicle> {
+        const headers = getAuthHeader();
+        let result : Vehicle = new Vehicle();
+        try {
+            result = await axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicle, {headers: headers});
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    }
+    
+    async deleteOne(id: number): Promise<Boolean> {
+        const headers = getAuthHeader();
+        let result = false;
+        try {
+            await axios.delete(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers});
+            result = true;
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    }
 
-export const getAllVehicles : Function = () => {
-    const headers = getDefaultHeaders();
-    return axios.get(`${config.REST_BASE_URL}/vehicles`, {headers: headers})
-};
+    async getVehicleEngines(id : number) : Promise<Engine[]> {
+        const headers = getDefaultHeaders();
+        let results = [];
+        try {
+            const response = await axios.get(`${config.REST_BASE_URL}/vehicles/${id}/engines`, {headers: headers});
+            results = response.data;
+        } catch (e) {
+            console.log(e);
+        }
+        return results;
+    }
 
-export const addVehicle : Function = (vehicle : Vehicle) => {
-    const headers = getAuthHeader();
-    return axios.post(`${config.REST_BASE_URL}/vehicles`, vehicle, {headers: headers})
-};
-
-export const updateVehicle : Function = (id : number, vehicle : Vehicle) => {
-    const headers = getAuthHeader();
-    return axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicle, {headers: headers})
-};
-
-export const deleteVehicle : Function = (id : number) => {
-    const headers = getAuthHeader();
-    return axios.delete(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers})
-};
-
-// COMBINED
-export const getVehicleEngines : Function = (vehicleId : number) => {
-    const headers = getDefaultHeaders();
-    return axios.get(`${config.REST_BASE_URL}/vehicles/${vehicleId}/engines`, {headers: headers})
-};
-
-export const getBrandVehicles : Function = (brandId : number) => {
-    const headers = getDefaultHeaders();
-    return axios.get(`${config.REST_BASE_URL}/vehicles?brandId=${brandId}`, {headers: headers})
-};
+    async getBrandVehicles(id : number) : Promise<Brand[]> {
+        const headers = getDefaultHeaders();
+        let results = [];
+        try {
+            const response = await axios.get(`${config.REST_BASE_URL}/brands/${id}/vehicles`, {headers: headers});
+            results = response.data;
+        } catch (e) {
+            console.log(e);
+        }
+        return results;
+    }
+    
+}
