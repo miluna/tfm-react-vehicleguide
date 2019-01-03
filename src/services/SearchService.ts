@@ -1,20 +1,21 @@
 // GENERAL FUNCTIONALITY
 import axios from "axios";
-import config from "../config";
+import config from "../config.json";
 import {getDefaultHeaders} from "./AuthService";
+import Vehicle from "../models/Vehicle.js";
 
-export const doSearch : Function = async ( searchName : string, 
+export async function doSearch( searchName : string, 
                                 searchType : string, 
                                 searchBrand: string, 
                                 searchMinPrice: number, 
                                 searchMaxPrice: number, 
                                 searchValueOrder: string, 
-                                searchOrder : string) => {
+                                searchOrder : string) : Promise<Vehicle[]> {
     const headers = getDefaultHeaders();
     const searchString : string = getQueryString(searchName, searchType, searchBrand, searchMinPrice, searchMaxPrice, searchValueOrder, searchOrder);
     try {
         const results = await axios.get(searchString, {headers: headers});
-        return results;
+        return results.data;
     } catch (error) {
         console.log(error);
         return [];
@@ -22,13 +23,13 @@ export const doSearch : Function = async ( searchName : string,
 };
 
 
-const getQueryString : Function = ( searchName : string, 
+function getQueryString ( searchName : string, 
                                     searchType : string, 
                                     searchBrand: string, 
                                     searchMinPrice: number, 
                                     searchMaxPrice: number, 
                                     searchValueOrder: string, 
-                                    searchOrder : string) : string => {
+                                    searchOrder : string) : string {
     let searchString : string = `${config.REST_BASE_URL}/search`;
     let moreThanOneParameter : boolean = false;
     

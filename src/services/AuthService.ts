@@ -1,6 +1,6 @@
 import {convertObjectToBase64, readObjectFromBase64} from './Base64';
 import axios from "axios";
-import config from '../config';
+import config from '../config.json';
 
 export const STORAGE_KEY_NAME : string = "cred";
 
@@ -20,12 +20,12 @@ export async function login(email : string, password : string) : Promise<boolean
 
 export function isUserAdmin() : boolean {
     // get session credentials. If non existent, is not admin
-    const base64Credentials : string = sessionStorage.getItem(STORAGE_KEY_NAME);
+    const base64Credentials : string | null = sessionStorage.getItem(STORAGE_KEY_NAME);
     return base64Credentials !== null;
 }
 
-export function getSavedCredentials() : string {
-    let credentials : string = sessionStorage.getItem(STORAGE_KEY_NAME);
+export function getSavedCredentials() : string | null {
+    let credentials : string | null = sessionStorage.getItem(STORAGE_KEY_NAME);
     return (credentials !== null) ? readObjectFromBase64(credentials) : credentials;
 }
 
