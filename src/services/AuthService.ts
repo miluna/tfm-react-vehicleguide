@@ -1,6 +1,7 @@
 import {convertObjectToBase64, readObjectFromBase64} from './Base64';
 import axios from "axios";
 import config from '../config.json';
+import ErrorMessage from '../models/Error';
 
 export const STORAGE_KEY_NAME : string = "cred";
 
@@ -13,7 +14,8 @@ export async function login(email : string, password : string) : Promise<boolean
         // save token to session storage
         sessionStorage.setItem(STORAGE_KEY_NAME, convertObjectToBase64(authToken));
         return true;
-    } catch(error) {
+    } catch(e) {
+        console.log(e);
         return false;
     }
 }
@@ -43,4 +45,28 @@ export function getDefaultHeaders() : Object {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
+}
+
+
+export function validateEmail(email : string) : boolean {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+
+export function validateEmailAndPassword(email: string, password: string) : boolean | ErrorMessage {
+    if (email === "") {
+        return new ErrorMessage("Email field empty");
+    }
+    if (!validateEmail(email)){
+        return new ErrorMessage("Email format incorrect");
+    }
+    if (password === "") {
+        return new ErrorMessage("Password field empty");
+    }
+    if (password.length < 6) {
+        return new ErrorMessage("Password should be more than 6 characters");
+    }
+
+    return true;
 }

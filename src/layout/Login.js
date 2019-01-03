@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import {login} from "../services/AuthService";
+import {login, validateEmailAndPassword} from "../services/AuthService";
 import {withRouter} from "react-router";
+import ErrorMessage from '../models/Error';
 
 class Login extends Component {
     constructor(props) {
@@ -32,8 +33,10 @@ class Login extends Component {
         if (this.validateParameters()) {
             // send credentials
             let isLoggedin = login(this.state.email, this.state.password);
-            if (isLoggedin) this.setState({logged: true});
-            else this.setState({error: "Email or password are incorrect"});
+            isLoggedin.then(result => {
+                if (result) this.setState({logged: true});
+                else this.setState(new ErrorMessage("Email or password incorrect"));
+            });
         }
     };
 
@@ -41,29 +44,14 @@ class Login extends Component {
         const {email, password} = this.state;
 
         // validate parameters
-        if (email === "") {
-            this.setState({error: "Email field empty"});
-            return false;
-        }
-        if (!this.validateEmail(email)){
-            this.setState({error: "Email format incorrect"});
-            return false;
-        }
-        if (password === "") {
-            this.setState({error: "Password field empty"});
-            return false;
-        }
-        if (password.length < 6) {
-            this.setState({error: "Password should be more than 6 characters"});
-            return false;
-        }
+        const validOrError = validateEmailAndPassword(email, password);
 
-        return true;
-    };
-
-    validateEmail = (email) => {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
+        if (validOrError instanceof ErrorMessage) {
+            this.setState(validOrError);
+            return false;
+        } else {
+            return true;
+        }
     };
 
 
