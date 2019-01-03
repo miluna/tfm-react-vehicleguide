@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import {login} from "../services/Auth";
+import {login} from "../services/AuthService";
 import {withRouter} from "react-router";
 
 class Login extends Component {

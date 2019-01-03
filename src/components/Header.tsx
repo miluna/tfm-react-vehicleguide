@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import NavButton from './NavButton';
 import config from "../config";
 
-const logo = (
+const logo : ReactElement<string> = (
     <div className="logo" style={{ display: "flex", flexDirection: "row" }}>
         <img src="images/logo.png" alt="brandImage"/>
     </div>
 );
 
-const content = (
+const content : ReactElement<string> = (
     <nav className="nav">
         <div className="navItem left">
             {logo}
@@ -24,7 +24,7 @@ const content = (
 );
 
 
-const Header = () => {
+const Header : FunctionComponent = () => {
     return (
         <div>
             {content}

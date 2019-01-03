@@ -5,6 +5,7 @@
     "allowJs": true,
     "jsx": "react",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["es2015", "dom"]
   }
 }

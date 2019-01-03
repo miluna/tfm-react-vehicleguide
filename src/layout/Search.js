@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
 import Input from '../components/Input';
 import Select from '../components/Select';
-import { doSearch } from '../services/Search';
+import { doSearch } from '../services/SearchService';
 
 class Search extends Component {
     constructor(props) {

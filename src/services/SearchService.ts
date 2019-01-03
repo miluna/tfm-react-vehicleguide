@@ -1,16 +1,17 @@
 // GENERAL FUNCTIONALITY
 import axios from "axios";
 import config from "../config";
-import {getDefaultHeaders} from "./Auth";
+import {getDefaultHeaders} from "./AuthService";
 
-export const searchBrandsOrVehicles = (typedMessage, type) => {
+export const doSearch : Function = async ( searchName : string, 
+                                searchType : string, 
+                                searchBrand: string, 
+                                searchMinPrice: number, 
+                                searchMaxPrice: number, 
+                                searchValueOrder: string, 
+                                searchOrder : string) => {
     const headers = getDefaultHeaders();
-    return axios.get(`${config.REST_BASE_URL}/search?name=${typedMessage}?type=${type}`, {headers: headers});
-};
-
-export const doSearch = async (searchName, searchType, searchBrand, searchMinPrice, searchMaxPrice, searchValueOrder, searchOrder) => {
-    const headers = getDefaultHeaders();
-    const searchString = getQueryString(searchName, searchType, searchBrand, searchMinPrice, searchMaxPrice, searchValueOrder, searchOrder);
+    const searchString : string = getQueryString(searchName, searchType, searchBrand, searchMinPrice, searchMaxPrice, searchValueOrder, searchOrder);
     try {
         const results = await axios.get(searchString, {headers: headers});
         return results;
@@ -21,9 +22,15 @@ export const doSearch = async (searchName, searchType, searchBrand, searchMinPri
 };
 
 
-const getQueryString = (searchName, searchType, searchBrand, searchMinPrice, searchMaxPrice, searchValueOrder, searchOrder) => {
-    let searchString = `${config.REST_BASE_URL}/search`;
-    let moreThanOneParameter = false;
+const getQueryString : Function = ( searchName : string, 
+                                    searchType : string, 
+                                    searchBrand: string, 
+                                    searchMinPrice: number, 
+                                    searchMaxPrice: number, 
+                                    searchValueOrder: string, 
+                                    searchOrder : string) : string => {
+    let searchString : string = `${config.REST_BASE_URL}/search`;
+    let moreThanOneParameter : boolean = false;
     
     if (searchName !== null) {
         searchString += `?name=${searchName}`;
