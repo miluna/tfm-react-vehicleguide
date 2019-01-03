@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, ReactElement} from 'react';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import ProtectedRoute from "./components/ProtectedRoute";
-import Footer from './components/Footer.tsx';
+import Footer from './components/Footer';
 import Home from './layout/Home';
 import Login from './layout/Login';
 import AdminPanel from './layout/admin/AdminPanel';
@@ -11,7 +11,7 @@ import Header from "./components/Header";
 import {isUserAdmin} from "./services/Auth";
 
 
-const routes = (
+const routes : ReactElement<Switch> = (
     <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/products/:id" component={Product}/>
