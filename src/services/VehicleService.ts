@@ -23,7 +23,7 @@ export default class VehicleService implements CrudService<Vehicle> {
     
     async getOne(id: number): Promise<Vehicle> {
         const headers = getDefaultHeaders();
-        let result : Vehicle = new Vehicle();
+        let result : Vehicle = {};
         try {
             const response = await axios.get(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers});
             result = response.data;
@@ -35,7 +35,7 @@ export default class VehicleService implements CrudService<Vehicle> {
     
     async createOne(vehicle: Vehicle): Promise<Vehicle> {
         const headers = getAuthHeader();
-        let result : Vehicle = new Vehicle();
+        let result : Vehicle = {};
         try {
             const response = await axios.post(`${config.REST_BASE_URL}/vehicles`, vehicle, {headers: headers});
             result = response.data;
@@ -47,7 +47,7 @@ export default class VehicleService implements CrudService<Vehicle> {
     
     async updateOne(id: number, vehicle: Vehicle): Promise<Vehicle> {
         const headers = getAuthHeader();
-        let result : Vehicle = new Vehicle();
+        let result : Vehicle = {};
         try {
             const response = await axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicle, {headers: headers});
             result = response.data;

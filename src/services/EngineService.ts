@@ -21,7 +21,7 @@ export default class EngineService implements CrudService<Engine> {
     
     async getOne(id: number): Promise<Engine> {
         const headers = getDefaultHeaders();
-        let result : Engine = new Engine();
+        let result : Engine = {};
         try {
             const response = await axios.get(`${config.REST_BASE_URL}/engines/${id}`, {headers: headers});
             result = response.data;
@@ -33,7 +33,7 @@ export default class EngineService implements CrudService<Engine> {
 
     async createOne(engine: Engine): Promise<Engine> {
         const headers = getAuthHeader();
-        let result : Engine = new Engine();
+        let result : Engine = {};
         try {
             const response = await axios.post(`${config.REST_BASE_URL}/engines`, engine, {headers: headers});
             result = response.data;
@@ -45,7 +45,7 @@ export default class EngineService implements CrudService<Engine> {
 
     async updateOne(id: number, engine: Engine): Promise<Engine> {
         const headers = getAuthHeader();
-        let result : Engine = new Engine();
+        let result : Engine = {};
         try {
             const response = await axios.put(`${config.REST_BASE_URL}/engines/${id}`, engine, {headers: headers});
             result = response.data;

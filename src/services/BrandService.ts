@@ -21,7 +21,7 @@ export default class BrandService implements CrudService<Brand> {
 
     async getOne(id: number) : Promise<Brand> {
         const headers = getDefaultHeaders();
-        let result : Brand = new Brand();
+        let result : Brand = {};
         try {
             const response = await axios.get(`${config.REST_BASE_URL}/brands/${id}`, {headers: headers});
             result = response.data;
@@ -33,7 +33,7 @@ export default class BrandService implements CrudService<Brand> {
 
     async createOne(brand : Brand) : Promise<Brand> {
         const headers = getAuthHeader();
-        let result : Brand = new Brand();
+        let result : Brand = {};
         try {
             const response = await axios.post(`${config.REST_BASE_URL}/brands`, brand, {headers: headers});
             result = response.data;
@@ -45,7 +45,7 @@ export default class BrandService implements CrudService<Brand> {
     
     async updateOne(id: number, brand : Brand) : Promise<Brand> {
         const headers = getAuthHeader();
-        let result : Brand = new Brand();
+        let result : Brand = {};
         try {
             const response = await axios.put(`${config.REST_BASE_URL}/brands/${id}`, brand, {headers: headers});
             result = response.data;

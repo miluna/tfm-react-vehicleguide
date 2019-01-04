@@ -1,4 +1,4 @@
-export default class Brand {
+export default interface Brand {
 
     id? : number;
 

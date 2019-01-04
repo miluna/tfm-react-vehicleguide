@@ -1,4 +1,4 @@
-export default class Search {
+export default interface Search {
 
     name? : string;
 

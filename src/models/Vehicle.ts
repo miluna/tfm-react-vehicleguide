@@ -1,7 +1,7 @@
 import Brand from "./Brand";
 import Engine from "./Engine";
 
-export default class Vehicle {
+export default interface Vehicle {
 
     id? : number;
 

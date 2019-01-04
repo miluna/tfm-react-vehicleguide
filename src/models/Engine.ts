@@ -1,4 +1,4 @@
-export default class Engine {
+export default interface Engine {
 
     id? : number;
 
