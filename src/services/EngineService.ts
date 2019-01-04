@@ -11,9 +11,8 @@ export default class EngineService implements CrudService<Engine> {
         const headers = getDefaultHeaders();
         let results = [];
         try {
-            const AxiosResponse = 
-                await axios.get(`${config.REST_BASE_URL}/engines`, {headers: headers});
-            results = AxiosResponse.data;
+            const response = await axios.get(`${config.REST_BASE_URL}/engines`, {headers: headers});
+            results = response.data;
         } catch (e) {
             console.log(e);
         }
@@ -24,7 +23,8 @@ export default class EngineService implements CrudService<Engine> {
         const headers = getDefaultHeaders();
         let result : Engine = new Engine();
         try {
-            result = await axios.get(`${config.REST_BASE_URL}/engines/${id}`, {headers: headers});
+            const response = await axios.get(`${config.REST_BASE_URL}/engines/${id}`, {headers: headers});
+            result = response.data;
         } catch (e) {
             console.log(e);
         }
@@ -35,7 +35,8 @@ export default class EngineService implements CrudService<Engine> {
         const headers = getAuthHeader();
         let result : Engine = new Engine();
         try {
-            result = await axios.post(`${config.REST_BASE_URL}/engines`, engine, {headers: headers});
+            const response = await axios.post(`${config.REST_BASE_URL}/engines`, engine, {headers: headers});
+            result = response.data;
         } catch (e) {
             console.log(e);
         }
@@ -46,7 +47,8 @@ export default class EngineService implements CrudService<Engine> {
         const headers = getAuthHeader();
         let result : Engine = new Engine();
         try {
-            result = await axios.put(`${config.REST_BASE_URL}/engines/${id}`, engine, {headers: headers});
+            const response = await axios.put(`${config.REST_BASE_URL}/engines/${id}`, engine, {headers: headers});
+            result = response.data;
         } catch (e) {
             console.log(e);
         }

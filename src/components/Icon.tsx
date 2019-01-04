@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { FunctionComponent, ReactElement } from 'react';
+import IconProps from './propModels/IconProps';
 
-const Icon = ({ iconName }) => {
+const Icon : FunctionComponent<IconProps> = ({ iconName } : IconProps) : ReactElement<IconProps> => {
     let iconClass = "fa fa-";
     if (iconName) iconClass+= iconName;
     return (

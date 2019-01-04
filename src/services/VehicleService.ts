@@ -13,9 +13,8 @@ export default class VehicleService implements CrudService<Vehicle> {
         const headers = getDefaultHeaders();
         let results = [];
         try {
-            const AxiosResponse = 
-                await axios.get(`${config.REST_BASE_URL}/vehicles`, {headers: headers})
-            results = AxiosResponse.data;
+            const response = await axios.get(`${config.REST_BASE_URL}/vehicles`, {headers: headers})
+            results = response.data;
         } catch (e) {
             console.log(e);
         }
@@ -26,7 +25,8 @@ export default class VehicleService implements CrudService<Vehicle> {
         const headers = getDefaultHeaders();
         let result : Vehicle = new Vehicle();
         try {
-            result = await axios.get(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers});
+            const response = await axios.get(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers});
+            result = response.data;
         } catch (e) {
             console.log(e);
         }
@@ -37,7 +37,8 @@ export default class VehicleService implements CrudService<Vehicle> {
         const headers = getAuthHeader();
         let result : Vehicle = new Vehicle();
         try {
-            result = await axios.post(`${config.REST_BASE_URL}/vehicles`, vehicle, {headers: headers});
+            const response = await axios.post(`${config.REST_BASE_URL}/vehicles`, vehicle, {headers: headers});
+            result = response.data;
         } catch (e) {
             console.log(e);
         }
@@ -48,7 +49,8 @@ export default class VehicleService implements CrudService<Vehicle> {
         const headers = getAuthHeader();
         let result : Vehicle = new Vehicle();
         try {
-            result = await axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicle, {headers: headers});
+            const response = await axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicle, {headers: headers});
+            result = response.data;
         } catch (e) {
             console.log(e);
         }

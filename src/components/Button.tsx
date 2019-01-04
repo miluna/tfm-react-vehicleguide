@@ -1,17 +1,8 @@
-import React, { FunctionComponent, ReactChildren } from 'react';
+import React, { FunctionComponent, ReactElement } from 'react';
+import ButtonProps from './propModels/ButtonProps';
 
 
-type ButtonProps = {
-    className? : string,
-    type? : string,
-    size? : string,
-    text: string,
-    onClick: any,
-    children: ReactChildren
-}
-
-
-const Button : FunctionComponent<ButtonProps> = (props : ButtonProps) => {
+const Button : FunctionComponent<ButtonProps> = (props : ButtonProps) : ReactElement<ButtonProps> => {
     let { className, type, size, text, onClick, children } = props;
     if (className) className += " button"; else className = "button";
     if (type) className += " is-" + type;

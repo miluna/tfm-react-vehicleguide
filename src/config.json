@@ -4,11 +4,11 @@
   "SearchIcon": "search",
   "CompareIcon": "bolt",
   "ProductIcons": {
-    "engineIcon":"superpowers",
-    "petrolIcon":"gas-pump",
+    "engineIcon": "superpowers",
+    "petrolIcon": "gas-pump",
     "electricIcon": "charging-station",
     "speedIcon": "tachometer-alt",
-    "autonomyIcon":"battery-half",
+    "autonomyIcon": "battery-half",
     "weightIcon": "balance-scale",
     "pollutionIcon": "cloud"
   },
@@ -27,6 +27,56 @@
       "link": "/compare",
       "icon": "car",
       "text": "Compare"
+    }
+  ],
+  "vehicleTypes": [
+    {
+      "id": null,
+      "text": "All types"
+    },
+    {
+      "id": "petrol",
+      "text": "Petrol"
+    },
+    {
+      "id": "diesel",
+      "text": "Diesel"
+    },
+    {
+      "id": "electric",
+      "text": "Electric"
+    },
+    {
+      "id": "hybrid",
+      "text": "Hybrid"
+    }
+  ],
+  "orderValues": [
+    {
+      "id": "price",
+      "text": "Order by Price"
+    },
+    {
+      "id": "name",
+      "text": "Order by Name"
+    },
+    {
+      "id": "year",
+      "text": "Order by Year"
+    },
+    {
+      "id": "displacement",
+      "text": "Order by Displacement"
+    }
+  ],
+  "orderTypes": [
+    {
+      "id": "ASC",
+      "text": "Ascendant"
+    },
+    {
+      "id": "DESC",
+      "text": "Descendant"
     }
   ]
 }

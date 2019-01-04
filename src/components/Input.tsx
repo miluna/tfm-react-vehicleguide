@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { FunctionComponent, ReactElement } from 'react';
+import InputProps from './propModels/InputProps';
 
-const Input = ({className, placeholder, type, min, max, value, onChange, onKeyPress}) => {
+const Input : FunctionComponent<InputProps> = 
+({className, placeholder, type, min, max, value, onChange, onKeyPress}: InputProps) : ReactElement<InputProps> => {
     const inputComponent = (min || max) ?
         <input className={className ? ("input " + className) : "input"}
                placeholder={placeholder}

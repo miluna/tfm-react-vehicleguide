@@ -1,6 +1,6 @@
 import React, { ReactElement, FunctionComponent } from 'react';
 import NavButton from './NavButton';
-import config from "../config";
+import config from "../config.json";
 
 const logo : ReactElement<string> = (
     <div className="logo" style={{ display: "flex", flexDirection: "row" }}>
@@ -24,7 +24,7 @@ const content : ReactElement<string> = (
 );
 
 
-const Header : FunctionComponent = () => {
+const Header : FunctionComponent<any> = () => {
     return (
         <div>
             {content}
