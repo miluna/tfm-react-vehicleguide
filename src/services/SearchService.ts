@@ -32,9 +32,9 @@ export default class SearchService {
 
         if (type) {
             if (moreThanOneParameter) {
-                searchString += `&type=${type}`
+                searchString += `&type=${type.id}`
             } else {
-                searchString += `?type=${type}`
+                searchString += `?type=${type.id}`
                 moreThanOneParameter = true;
             }
         }

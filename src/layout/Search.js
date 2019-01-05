@@ -42,7 +42,6 @@ class Search extends Component {
             .then((results) => {
                 this.setState({results});
             })
-        
     }
     
     updateName = (event) => {
@@ -62,6 +61,16 @@ class Search extends Component {
         }
     }
 
+    updateType = (event) => {
+        const text = event.target.value;
+        const selected = this.vehicleTypes.filter(type => type.text === text);
+        if (selected.length > 0) {
+            const s = this.state.searchObject;
+            s.type = selected[0];
+            this.setState({searchObject: s});
+        }
+    }
+
     updateMinPrice = (event) => {
         const value = event.target.value;
         const s = this.state.searchObject;
@@ -74,6 +83,26 @@ class Search extends Component {
         const s = this.state.searchObject;
         s.maxPrice = value;
         this.setState({searchObject: s});
+    }
+
+    updateOrderValue = (event) => {
+        const text = event.target.value;
+        const selected = this.orderValues.filter(type => type.text === text);
+        if (selected.length > 0) {
+            const s = this.state.searchObject;
+            s.orderValue = selected[0];
+            this.setState({searchObject: s});
+        }
+    }
+
+    updateOrderType = (event) => {
+        const text = event.target.value;
+        const selected = this.orderTypes.filter(type => type.text === text);
+        if (selected.length > 0) {
+            const s = this.state.searchObject;
+            s.order = selected[0];
+            this.setState({searchObject: s});
+        }
     }
 
     componentDidMount() {
@@ -117,6 +146,7 @@ class Search extends Component {
                         <div className="column">
                             <Select 
                                 options={this.vehicleTypes} 
+                                onChange={this.updateType}
                             />
                         </div>
                         <div className="column">
@@ -134,13 +164,23 @@ class Search extends Component {
                             />
                         </div>
                         <div className="column">
-                            <Select options={this.orderValues} />
+                            <Select 
+                                options={this.orderValues} 
+                                onChange={this.updateOrderValue}
+                            />
                         </div>
                         <div className="column">
-                            <Select options={this.orderTypes} />
+                            <Select 
+                                options={this.orderTypes} 
+                                onChange={this.updateOrderType}
+                            />
                         </div>
                         <div className="column">
-                            <Button className="is-primary" text="Search" onClick={this.doSearch}/>
+                            <Button 
+                                className="is-primary" 
+                                text="Search" 
+                                onClick={this.doSearch}
+                            />
                         </div>
                     </div>
                 </div>

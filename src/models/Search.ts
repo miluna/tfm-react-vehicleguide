@@ -5,7 +5,7 @@ export default interface Search {
 
     name? : string;
 
-    type? : string; 
+    type? : SelectOption; 
 
     brand?: Brand;
 
