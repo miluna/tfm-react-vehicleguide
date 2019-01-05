@@ -2,10 +2,7 @@ import React, { FunctionComponent } from 'react';
 import SearchResult from '../models/SearchResult';
 import { Link } from 'react-router-dom';
 
-const ProductCard : FunctionComponent<SearchResult> = (prop : SearchResult) => {
-
-    const { id, name, year, segment, basePrice } = prop;
-
+const ProductCard : FunctionComponent<SearchResult> = ({id, name, year, segment, basePrice} : SearchResult) => {
     return (
         <Link to={`/products/${id}`} >
             <section className="hero">
@@ -15,9 +12,7 @@ const ProductCard : FunctionComponent<SearchResult> = (prop : SearchResult) => {
                             <h1 className="title">
                                 {name}
                             </h1>
-                            <h2 className="subtitle">
-                                {`Year ${year}`}
-                            </h2>
+                            <p>{`Year ${year}`}</p>
                             <p>{`Segment ${segment}`}</p>
                             <p>{`Price starting at ${basePrice}`}</p>
                         </div>

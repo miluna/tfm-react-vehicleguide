@@ -1,4 +1,5 @@
 import Brand from "./Brand";
+import { SelectOption } from "../components/propModels/SelectProps";
 
 export default interface Search {
 
@@ -12,7 +13,7 @@ export default interface Search {
 
     maxPrice? : string;
 
-    orderValue? : string;
+    orderValue? : SelectOption;
 
-    order? : string;
+    order? : SelectOption;
 }

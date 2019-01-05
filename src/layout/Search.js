@@ -6,6 +6,7 @@ import config from "../config.json";
 import ProductCard from '../components/ProductCard';
 import BrandService from '../services/BrandService';
 import SearchService from '../services/SearchService';
+import Button from '../components/Button';
 
 class Search extends Component {
     constructor(props) {
@@ -24,8 +25,8 @@ class Search extends Component {
                 brand: null,
                 minPrice: null,
                 maxPrice: null,
-                orderValue: null,
-                order: null
+                orderValue: this.orderValues[0],
+                order: this.orderTypes[0]
             }
         }
     }
@@ -37,12 +38,17 @@ class Search extends Component {
 
     doSearch = () => {
         const { searchObject } = this.state;
-        const results = this.searchService.doSearch(searchObject);
-        this.setState({results});
+        this.searchService.doSearch(searchObject)
+            .then((results) => {
+                this.setState({results});
+            })
+        
     }
     
     updateName = (event) => {
-        this.setState({searchObject: {name: event.target.value}});
+        const s = this.state.searchObject;
+        s.name = event.target.value;
+        this.setState({searchObject: s});
     }
 
     updateBrand = (event) => {
@@ -50,9 +56,24 @@ class Search extends Component {
         const selected = this.state.brands.filter(brand => brand.name === text);
 
         if (selected.length > 0) {
-            console.log(selected[0]);
-            this.setState({searchObject: {brand : selected[0]}});
+            const s = this.state.searchObject;
+            s.brand = selected[0];
+            this.setState({searchObject: s});
         }
+    }
+
+    updateMinPrice = (event) => {
+        const value = event.target.value;
+        const s = this.state.searchObject;
+        s.minPrice = value;
+        this.setState({searchObject: s});
+    }
+
+    updateMaxPrice = (event) => {
+        const value = event.target.value;
+        const s = this.state.searchObject;
+        s.maxPrice = value;
+        this.setState({searchObject: s});
     }
 
     componentDidMount() {
@@ -61,18 +82,19 @@ class Search extends Component {
             name: "All Brands"
         }
         this.brandService.getAll()
-            .then((results) => {
-                results.unshift(defaultBrand);
-                this.setState({brands: results});
-            })
-        
+            .then(brands => {
+                brands.unshift(defaultBrand);
+                this.searchService.doSearch(this.state.searchObject)
+                    .then(results => {
+                        this.setState({brands: brands, results: results});
+                    })
+            });
     }
    
     render() {
         const { results, brands } = this.state;
         const brandSelectOptions = brands.map(e => this.mapToSelectOption(e.id, e.name));
-
-        const searchElements = results.map(e => <ProductCard vehicle={e} />)
+        const searchElements = results.map(e => <ProductCard key={e.id} id={e.id} name={e.name} year={e.year} segment={e.segment} basePrice={e.basePrice}  />)
 
         console.log(this.state);
         return (
@@ -98,16 +120,27 @@ class Search extends Component {
                             />
                         </div>
                         <div className="column">
-                            <Input placeholder="Minimum price" type="text" />
+                            <Input 
+                                placeholder="Minimum price" 
+                                type="number" 
+                                onChange={this.updateMinPrice}
+                            />
                         </div>
                         <div className="column">
-                            <Input placeholder="Maximum price" type="text" />
+                            <Input 
+                                placeholder="Maximum price" 
+                                type="number" 
+                                onChange={this.updateMaxPrice}
+                            />
                         </div>
                         <div className="column">
                             <Select options={this.orderValues} />
                         </div>
                         <div className="column">
                             <Select options={this.orderTypes} />
+                        </div>
+                        <div className="column">
+                            <Button className="is-primary" text="Search" onClick={this.doSearch}/>
                         </div>
                     </div>
                 </div>
