@@ -7,6 +7,7 @@ import ProductCard from '../components/ProductCard';
 import BrandService from '../services/BrandService';
 import SearchService from '../services/SearchService';
 import Button from '../components/Button';
+import Loading from '../components/Loading';
 
 class Search extends Component {
     constructor(props) {
@@ -177,7 +178,7 @@ class Search extends Component {
                         </div>
                         <div className="column">
                             <Button 
-                                className="is-primary" 
+                                className="is-primary is-fullwidth" 
                                 text="Search" 
                                 onClick={this.doSearch}
                             />
@@ -185,7 +186,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div>
-                    {searchElements}
+                    {searchElements.length > 0 ? searchElements : <Loading height="80vh" fontSize="3rem"/>}
                 </div>
             </div>
         );
