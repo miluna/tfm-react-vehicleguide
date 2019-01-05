@@ -3,16 +3,11 @@ import axios from "axios";
 import config from "../config.json";
 import {getDefaultHeaders} from "./AuthService";
 import Vehicle from "../models/Vehicle.js";
+import Search from "../models/Search";
 
-export async function doSearch( searchName : string, 
-                                searchType : string, 
-                                searchBrand: string, 
-                                searchMinPrice: number, 
-                                searchMaxPrice: number, 
-                                searchValueOrder: string, 
-                                searchOrder : string) : Promise<Vehicle[]> {
+export async function doSearch(searchObject : Search) : Promise<Vehicle[]> {
     const headers = getDefaultHeaders();
-    const searchString : string = getQueryString(searchName, searchType, searchBrand, searchMinPrice, searchMaxPrice, searchValueOrder, searchOrder);
+    const searchString : string = getQueryString(searchObject);
     try {
         const results = await axios.get(searchString, {headers: headers});
         return results.data;
@@ -23,71 +18,66 @@ export async function doSearch( searchName : string,
 };
 
 
-function getQueryString ( searchName : string, 
-                                    searchType : string, 
-                                    searchBrand: string, 
-                                    searchMinPrice: number, 
-                                    searchMaxPrice: number, 
-                                    searchValueOrder: string, 
-                                    searchOrder : string) : string {
+function getQueryString (searchObject: Search) : string {
     let searchString : string = `${config.REST_BASE_URL}/search`;
     let moreThanOneParameter : boolean = false;
+    const { name, brand, type, order, orderValue, minPrice, maxPrice } = searchObject;
     
-    if (searchName !== null) {
-        searchString += `?name=${searchName}`;
+    if (name !== null) {
+        searchString += `?name=${name}`;
         moreThanOneParameter = true;
     }
 
-    if (searchType !== null) {
+    if (type !== null) {
         if (moreThanOneParameter) {
-            searchString += `&type=${searchType}`
+            searchString += `&type=${type}`
         } else {
-            searchString += `?type=${searchType}`
+            searchString += `?type=${type}`
             moreThanOneParameter = true;
         }
     }
 
-    if (searchBrand !== null) {
+    if (brand !== null && brand !== undefined) {
         if (moreThanOneParameter) {
-            searchString += `&brand=${searchBrand}`
+            searchString += `&brand=${brand.id}`
         } else {
-            searchString += `?brand=${searchBrand}`
+            searchString += `?brand=${brand.id}`
             moreThanOneParameter = true;
         }
     }
 
-    if (searchMinPrice !== null) {
+    if (minPrice !== null) {
         if (moreThanOneParameter) {
-            searchString += `&minPrice=${searchMinPrice}`
+            searchString += `&minPrice=${minPrice}`
         } else {
-            searchString += `?minPrice=${searchMinPrice}`
+            searchString += `?minPrice=${minPrice}`
             moreThanOneParameter = true;
         }
     }
 
-    if (searchMaxPrice !== null) {
+    if (maxPrice !== null) {
         if (moreThanOneParameter) {
-            searchString += `&maxPrice=${searchMaxPrice}`
+            searchString += `&maxPrice=${maxPrice}`
         } else {
-            searchString += `?maxPrice=${searchMaxPrice}`
+            searchString += `?maxPrice=${maxPrice}`
             moreThanOneParameter = true;
         }
     }
 
-    if (searchValueOrder !== null) {
+    if (orderValue !== null) {
         if (moreThanOneParameter) {
-            searchString += `&orderValue=${searchValueOrder}`
+            searchString += `&orderValue=${orderValue}`
         } else {
-            searchString += `?orderValue=${searchValueOrder}`
+            searchString += `?orderValue=${orderValue}`
             moreThanOneParameter = true;
         }
     }
 
-    if (searchOrder !== null) {
+    if (order !== null) {
         if (moreThanOneParameter) {
-            searchString += `&order=${searchOrder}`
+            searchString += `&order=${order}`
         } else {
-            searchString += `?order=${searchOrder}`
+            searchString += `?order=${order}`
             moreThanOneParameter = true;
         }
     }

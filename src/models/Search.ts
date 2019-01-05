@@ -1,10 +1,12 @@
+import Brand from "./Brand";
+
 export default interface Search {
 
     name? : string;
 
     type? : string; 
 
-    brand?: string;
+    brand?: Brand;
 
     minPrice? : string;
 
