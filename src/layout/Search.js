@@ -124,7 +124,17 @@ class Search extends Component {
     render() {
         const { results, brands } = this.state;
         const brandSelectOptions = brands.map(e => this.mapToSelectOption(e.id, e.name));
-        const searchElements = results.map(e => <ProductCard key={e.id} id={e.id} name={e.name} year={e.year} segment={e.segment} basePrice={e.basePrice}  />)
+        const searchElements = results.map(e => <ProductCard 
+            key={e.id} 
+            id={e.id} 
+            brand={e.brand} 
+            mainImage={e.mainImage} 
+            description={e.description}
+            name={e.name} 
+            year={e.year} 
+            segment={e.segment} 
+            basePrice={e.basePrice}  
+        />)
 
         console.log(this.state);
         return (

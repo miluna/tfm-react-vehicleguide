@@ -14,8 +14,31 @@
 }
 
 .product-container {
+    height: 17rem;
+}
+
+.product-container:hover {
+    box-shadow: 0.2rem 0.2rem 0.9rem #868686;
+}
+
+.product-grid {
     display: grid;
     grid-template-columns: 40% auto;
+}
+
+.product-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image {
+    width: 13rem;
+    height: 12rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
 }
 
 .tags-container {
