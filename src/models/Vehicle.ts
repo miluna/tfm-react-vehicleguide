@@ -7,6 +7,8 @@ export default interface Vehicle {
 
     brand? : Brand;
 
+    mainImage? : string;
+
     engines? : Array<Engine>;
 
     name? : string;

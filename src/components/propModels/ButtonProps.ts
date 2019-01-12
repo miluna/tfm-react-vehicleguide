@@ -6,5 +6,5 @@ export default interface ButtonProps {
     size? : string,
     text?: string,
     onClick?: any,
-    children: ReactNode
+    children?: ReactNode
 }

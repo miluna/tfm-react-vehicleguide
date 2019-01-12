@@ -8,7 +8,7 @@ const ProductCard: FunctionComponent<SearchResult> = ({ id, brand, name, descrip
     const imageUrl = mainImage ? `url("${mainImage}")` : `url("${noImage}")`;
     const stl: CSSProperties = {
         backgroundImage: imageUrl
-    }
+    };
 
     const title = brand? `${brand.name} ${name} - ${year}` : `${name} - ${year}`
 

@@ -33,9 +33,8 @@ class Search extends Component {
     }
 
     mapToSelectOption = (id, text) => {
-        const option = {id, text}
-        return option;
-    }
+        return {id, text};
+    };
 
     doSearch = () => {
         const { searchObject } = this.state;
@@ -43,13 +42,13 @@ class Search extends Component {
             .then((results) => {
                 this.setState({results});
             })
-    }
+    };
     
     updateName = (event) => {
         const s = this.state.searchObject;
         s.name = event.target.value;
         this.setState({searchObject: s});
-    }
+    };
 
     updateBrand = (event) => {
         const text = event.target.value;
@@ -60,7 +59,7 @@ class Search extends Component {
             s.brand = selected[0];
             this.setState({searchObject: s});
         }
-    }
+    };
 
     updateType = (event) => {
         const text = event.target.value;
@@ -70,21 +69,21 @@ class Search extends Component {
             s.type = selected[0];
             this.setState({searchObject: s});
         }
-    }
+    };
 
     updateMinPrice = (event) => {
         const value = event.target.value;
         const s = this.state.searchObject;
         s.minPrice = value;
         this.setState({searchObject: s});
-    }
+    };
 
     updateMaxPrice = (event) => {
         const value = event.target.value;
         const s = this.state.searchObject;
         s.maxPrice = value;
         this.setState({searchObject: s});
-    }
+    };
 
     updateOrderValue = (event) => {
         const text = event.target.value;
@@ -94,7 +93,7 @@ class Search extends Component {
             s.orderValue = selected[0];
             this.setState({searchObject: s});
         }
-    }
+    };
 
     updateOrderType = (event) => {
         const text = event.target.value;
@@ -104,13 +103,13 @@ class Search extends Component {
             s.order = selected[0];
             this.setState({searchObject: s});
         }
-    }
+    };
 
     componentDidMount() {
         const defaultBrand = {
             id: null,
             name: "All Brands"
-        }
+        };
         this.brandService.getAll()
             .then(brands => {
                 brands.unshift(defaultBrand);
@@ -134,7 +133,7 @@ class Search extends Component {
             year={e.year} 
             segment={e.segment} 
             basePrice={e.basePrice}  
-        />)
+        />);
 
         console.log(this.state);
         return (
@@ -149,13 +148,15 @@ class Search extends Component {
                             />
                         </div>
                         <div className="column">
-                            <Select 
+                            <Select
+                                id="brand-select"
                                 options={brandSelectOptions} 
                                 onChange={this.updateBrand}
                             />
                         </div>
                         <div className="column">
-                            <Select 
+                            <Select
+                                id="vehicle-type-select"
                                 options={this.vehicleTypes} 
                                 onChange={this.updateType}
                             />
@@ -175,13 +176,15 @@ class Search extends Component {
                             />
                         </div>
                         <div className="column">
-                            <Select 
+                            <Select
+                                id="order-values-select"
                                 options={this.orderValues} 
                                 onChange={this.updateOrderValue}
                             />
                         </div>
                         <div className="column">
-                            <Select 
+                            <Select
+                                id="order-type-select"
                                 options={this.orderTypes} 
                                 onChange={this.updateOrderType}
                             />

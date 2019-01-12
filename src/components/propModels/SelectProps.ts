@@ -1,6 +1,6 @@
 import { CSSProperties, ReactElement, ChangeEvent } from "react";
 
-export interface SelectProps extends ReactElement<any> {
+export interface SelectProps {
     className?: string, 
     id: string, 
     options: Array<SelectOption>, 
@@ -8,7 +8,7 @@ export interface SelectProps extends ReactElement<any> {
     onChange: any
 }
 
-export interface SelectOption extends ReactElement<any> {
+export interface SelectOption {
     id?: string,
     text?: string
 }
