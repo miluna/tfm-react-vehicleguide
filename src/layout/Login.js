@@ -32,11 +32,11 @@ class Login extends Component {
     sendCredentials = () => {
         if (this.validateParameters()) {
             // send credentials
-            let isLoggedin = login(this.state.email, this.state.password);
-            isLoggedin.then(result => {
-                if (result) this.setState({logged: true});
-                else this.setState(new ErrorMessage("Email or password incorrect"));
-            });
+            login(this.state.email, this.state.password)
+                .then(result => {
+                    if (result) this.setState({logged: true});
+                    else this.setState(new ErrorMessage("Email or password incorrect"));
+                });
         }
     };
 

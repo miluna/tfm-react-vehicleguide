@@ -5,11 +5,15 @@ import Slider from "../components/Slider";
 import Video from "../components/Video";
 // import sourceVideo from "../media/videos/home_video.mp4"
 import Button from "../components/Button";
+import BrandService from "../services/BrandService";
+import VehicleService from "../services/VehicleService";
 
 const sourceVideo = null;
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.brandService = new BrandService();
+        this.vehicleService = new VehicleService();
         this.state = {
             searchError: "",
             selectedBrand: null,
@@ -26,7 +30,7 @@ class Home extends Component {
         switch (e.target.id) {
             case "brand":
                 if (e.target.value === "All Brands") this.setState({selectedBrand : null});
-                else this.setState({selectedBrand: e.target.value});
+                else this.searchBrandModels(e.target.value);
                 break;
             case "model":
                 if (e.target.value === "All Models") this.setState({selectedModel: null});
@@ -62,6 +66,37 @@ class Home extends Component {
     customSearch = () => {
         return null;
     };
+
+    searchBrandModels = (brand) => {
+        const brandObject = this.state.brandOptions.filter(e => e.text === brand)[0];
+        this.vehicleService.getBrandVehicles(brandObject.id)
+            .then(vehicles => {
+                const vehicleOpts = vehicles.map(e => {
+                    return {
+                        id: e.id,-
+                        text: e.name
+                    }
+                });
+                this.setState({
+                    selectedBrand: brand,
+                    vehicleOptions: vehicleOpts
+                });
+            })
+
+    };
+
+    componentDidMount() {
+        this.brandService.getAll()
+            .then(brands => {
+                const brandOpts = brands.map(e => {
+                    return {
+                        id: e.id,
+                        text: e.name
+                    }
+                });
+                this.setState({brandOptions: brandOpts})
+            })
+    }
 
     render() {
         const {brandOptions, searchError, vehicleOptions, selectedMinimumPrice, selectedMaximumPrice} = this.state;

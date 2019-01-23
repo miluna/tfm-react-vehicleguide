@@ -25,7 +25,7 @@ export default class VehicleService implements CrudService<Vehicle> {
         const headers = getDefaultHeaders();
         let result : Vehicle = {};
         try {
-            const response = await axios.get(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers});
+            const response = await axios.get(`${config.REST_BASE_URL}/vehicles/${id.toString()}`, {headers: headers});
             result = response.data;
         } catch (e) {
             console.log(e);
@@ -49,7 +49,7 @@ export default class VehicleService implements CrudService<Vehicle> {
         const headers = getAuthHeader();
         let result : Vehicle = {};
         try {
-            const response = await axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicle, {headers: headers});
+            const response = await axios.put(`${config.REST_BASE_URL}/vehicles/${id.toString()}`, vehicle, {headers: headers});
             result = response.data;
         } catch (e) {
             console.log(e);
@@ -61,7 +61,7 @@ export default class VehicleService implements CrudService<Vehicle> {
         const headers = getAuthHeader();
         let result = false;
         try {
-            await axios.delete(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers});
+            await axios.delete(`${config.REST_BASE_URL}/vehicles/${id.toString()}`, {headers: headers});
             result = true;
         } catch (e) {
             console.log(e);
@@ -73,7 +73,7 @@ export default class VehicleService implements CrudService<Vehicle> {
         const headers = getDefaultHeaders();
         let results = [];
         try {
-            const response = await axios.get(`${config.REST_BASE_URL}/vehicles/${id}/engines`, {headers: headers});
+            const response = await axios.get(`${config.REST_BASE_URL}/vehicles/${id.toString()}/engines`, {headers: headers});
             results = response.data;
         } catch (e) {
             console.log(e);
@@ -81,11 +81,11 @@ export default class VehicleService implements CrudService<Vehicle> {
         return results;
     }
 
-    async getBrandVehicles(id : number) : Promise<Brand[]> {
+    async getBrandVehicles(id : number) : Promise<Vehicle[]> {
         const headers = getDefaultHeaders();
         let results = [];
         try {
-            const response = await axios.get(`${config.REST_BASE_URL}/brands/${id}/vehicles`, {headers: headers});
+            const response = await axios.get(`${config.REST_BASE_URL}/brands/${id.toString()}/vehicles`, {headers: headers});
             results = response.data;
         } catch (e) {
             console.log(e);

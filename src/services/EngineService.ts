@@ -23,7 +23,7 @@ export default class EngineService implements CrudService<Engine> {
         const headers = getDefaultHeaders();
         let result : Engine = {};
         try {
-            const response = await axios.get(`${config.REST_BASE_URL}/engines/${id}`, {headers: headers});
+            const response = await axios.get(`${config.REST_BASE_URL}/engines/${id.toString()}`, {headers: headers});
             result = response.data;
         } catch (e) {
             console.log(e);
@@ -47,7 +47,7 @@ export default class EngineService implements CrudService<Engine> {
         const headers = getAuthHeader();
         let result : Engine = {};
         try {
-            const response = await axios.put(`${config.REST_BASE_URL}/engines/${id}`, engine, {headers: headers});
+            const response = await axios.put(`${config.REST_BASE_URL}/engines/${id.toString()}`, engine, {headers: headers});
             result = response.data;
         } catch (e) {
             console.log(e);
@@ -59,7 +59,7 @@ export default class EngineService implements CrudService<Engine> {
         const headers = getAuthHeader();
         let result = false;
         try {
-            await axios.delete(`${config.REST_BASE_URL}/engines/${id}`, {headers: headers})
+            await axios.delete(`${config.REST_BASE_URL}/engines/${id.toString()}`, {headers: headers})
             result = true;
         } catch (e) {
             console.log(e);

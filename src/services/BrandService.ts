@@ -23,7 +23,7 @@ export default class BrandService implements CrudService<Brand> {
         const headers = getDefaultHeaders();
         let result : Brand = {};
         try {
-            const response = await axios.get(`${config.REST_BASE_URL}/brands/${id}`, {headers: headers});
+            const response = await axios.get(`${config.REST_BASE_URL}/brands/${id.toString()}`, {headers: headers});
             result = response.data;
         } catch (e) {
             console.log(e);
@@ -47,7 +47,7 @@ export default class BrandService implements CrudService<Brand> {
         const headers = getAuthHeader();
         let result : Brand = {};
         try {
-            const response = await axios.put(`${config.REST_BASE_URL}/brands/${id}`, brand, {headers: headers});
+            const response = await axios.put(`${config.REST_BASE_URL}/brands/${id.toString()}`, brand, {headers: headers});
             result = response.data;
         } catch (e) {
             console.log(e);
@@ -59,7 +59,7 @@ export default class BrandService implements CrudService<Brand> {
         const headers = getAuthHeader();
         let result = false;
         try {
-            await axios.delete(`${config.REST_BASE_URL}/brands/${id}`, {headers: headers});
+            await axios.delete(`${config.REST_BASE_URL}/brands/${id.toString()}`, {headers: headers});
             result = true;
         } catch (e) {
             console.log(e);
