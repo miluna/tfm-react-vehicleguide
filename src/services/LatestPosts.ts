@@ -3,7 +3,7 @@ import config from "../config.json";
 import {getDefaultHeaders} from "./AuthService";
 import Vehicle from "../models/Vehicle.js";
 
-export async function getLatestNews() : Promise<Vehicle> {
+export async function getLatestNews() : Promise<Array<Vehicle>> {
     const headers = getDefaultHeaders();
     try {
         const results = await axios.get(`${config.REST_BASE_URL}/latest`, {headers: headers});
@@ -12,4 +12,4 @@ export async function getLatestNews() : Promise<Vehicle> {
         console.log(e);
         return [];
     }
-};
+}

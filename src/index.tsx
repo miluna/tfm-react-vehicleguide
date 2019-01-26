@@ -7,15 +7,13 @@ import 'font-awesome/css/font-awesome.min.css';
 import './styles/admin.css';
 import './styles/main.css';
 import './styles/product.css';
+import * as serviceWorker from './serviceWorker';
 
-function doRender() {
-  ReactDOM.render(
+ReactDOM.render(
     <BrowserRouter>
         <App />
     </BrowserRouter>,
     document.getElementById('root')
   );
-  
-}
-window.onload = doRender;
-module.hot.accept(doRender);
+
+serviceWorker.unregister();

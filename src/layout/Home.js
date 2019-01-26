@@ -73,7 +73,7 @@ class Home extends Component {
             .then(vehicles => {
                 const vehicleOpts = vehicles.map(e => {
                     return {
-                        id: e.id,-
+                        id: e.id,
                         text: e.name
                     }
                 });
