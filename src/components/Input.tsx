@@ -15,6 +15,7 @@ const Input : FunctionComponent<InputProps> =
         <input className={className ? ("input " + className) : "input"}
                placeholder={placeholder}
                type={type}
+               value={value}
                onChange={onChange}
                onKeyPress={onKeyPress}/>;
 
