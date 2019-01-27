@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Brands from './BrandsTab';
 import Vehicles from './EnginesTab';
 import Engines from './EnginesTab';
+import {withRouter} from "react-router";
 
 
 class AdminPanel extends Component {
@@ -55,4 +56,4 @@ class AdminPanel extends Component {
     }
 }
 
-export default AdminPanel;
+export default withRouter(AdminPanel);

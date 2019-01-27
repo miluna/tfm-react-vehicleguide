@@ -1,9 +1,10 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
+import {isUserAdmin} from "../services/AuthService";
 
-const ProtectedRoute = ({component: Component, isAuthenticated, ...rest}) => (
+const ProtectedRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
-        isAuthenticated === true
+        isUserAdmin()
             ? <Component {...props} />
             : <Redirect to='/login'/>
     )}/>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import {login, validateEmailAndPassword} from "../services/AuthService";
+import {isUserAdmin, login, validateEmailAndPassword} from "../services/AuthService";
 import {withRouter} from "react-router";
 import ErrorMessage from '../models/Error';
 
@@ -34,6 +34,7 @@ class Login extends Component {
             // send credentials
             login(this.state.email, this.state.password)
                 .then(result => {
+                    console.log(result);
                     if (result) this.setState({logged: true});
                     else this.setState(new ErrorMessage("Email or password incorrect"));
                 });
@@ -54,12 +55,16 @@ class Login extends Component {
         }
     };
 
+    componentDidMount() {
+        const isAdmin = isUserAdmin();
+        if (isAdmin) this.props.history.push("/admin");
+    }
+
 
     render() {
-        // redirect to admin panel
-        if (this.state.logged) return <Redirect to="/admin" />;
-
-        return (
+        // redirect to admin panel after login
+        if (this.state.logged) return <Redirect to="/admin"/>;
+        else return (
             <div className="container" style={{marginTop: '2rem', marginBottom: '2rem'}}>
                 <div className="form card centered" style={{backgroundColor: '#f5f5f5'}}>
                     <h3 className="Subtitle" style={{fontWeight: 600}}>Email</h3>
