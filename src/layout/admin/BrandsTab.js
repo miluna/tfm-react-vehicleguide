@@ -15,7 +15,7 @@ class BrandsTab extends Component {
         ];
         this.state = {
             brands: [],
-            brand: {name:"", year:0},
+            brand: {name:"", year:0, country:""},
             selectedMode: this.modeOptions[0],
             error: "",
             message: "",
@@ -32,6 +32,12 @@ class BrandsTab extends Component {
     updateYear = (e) => {
         const {brand} = this.state;
         brand.year = e;
+        this.setState({brand});
+    };
+    
+    updateCountry = (e) => {
+        const {brand} = this.state;
+        brand.country = e;
         this.setState({brand});
     };
 
@@ -124,7 +130,17 @@ class BrandsTab extends Component {
                     value={('' + this.state.brand.year).slice(0)}
                     onChange={e => this.updateYear(e.target.value)}/>
             </div>;
-
+        const countryInput =
+            <div style={{marginTop: '0.3rem', marginBottom: '0.3rem', width: '85%'}}>
+                <label>Year of birth</label>
+                <Input
+                    className="admin-input is-fullwidth"
+                    placeholder="Country"
+                    value={('' + this.state.brand.country).slice(0)}
+                    onChange={e => this.updateCountry(e.target.value)}/>
+            </div>;
+            
+            
         switch (selectedMode.id) {
             case "add":
                 return (
@@ -132,6 +148,7 @@ class BrandsTab extends Component {
                         {modeSelector}
                         {nameInput}
                         {yearInput}
+                        {countryInput}
                         <br/>
                         {this.state.loading
                             ? <Button className="is-success is-loading" text="Add" onClick={this.addNewBrand}/>
@@ -148,6 +165,7 @@ class BrandsTab extends Component {
                         {brandSelector}
                         {nameInput}
                         {yearInput}
+                        {countryInput}
                         <br/>
                         {this.state.loading
                             ? <Button className="is-primary is-loading" text="Update" onClick={this.updateBrand}/>
