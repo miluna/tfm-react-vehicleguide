@@ -6,5 +6,6 @@ export default interface InputProps {
     max?: number,
     value?: string, 
     onChange?: any, 
-    onKeyPress?: any
+    onKeyPress?: any,
+    label?: string
 }

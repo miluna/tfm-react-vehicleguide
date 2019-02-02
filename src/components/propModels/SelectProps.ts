@@ -5,7 +5,8 @@ export interface SelectProps {
     id: string, 
     options: Array<SelectOption>, 
     style?: CSSProperties, 
-    onChange: any
+    onChange: any,
+    label?: string
 }
 
 export interface SelectOption {

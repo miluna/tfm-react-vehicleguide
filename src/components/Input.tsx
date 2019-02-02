@@ -2,7 +2,10 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import InputProps from './propModels/InputProps';
 
 const Input : FunctionComponent<InputProps> = 
-({className, placeholder, type, min, max, value, onChange, onKeyPress}: InputProps) : ReactElement<InputProps> => {
+({className, placeholder, type, min, max, value, onChange, onKeyPress, label}: InputProps) : ReactElement<InputProps> => {
+
+    const labelComponent = label ? <label>{label}</label> : null;
+
     const inputComponent = (min || max) ?
         <input className={className ? ("input " + className) : "input"}
                placeholder={placeholder}
@@ -20,7 +23,8 @@ const Input : FunctionComponent<InputProps> =
                onKeyPress={onKeyPress}/>;
 
     return (
-        <div>
+        <div style={{marginTop: '0.3rem', marginBottom: '0.3rem', width: '85%'}}>
+            {labelComponent}
             {inputComponent}
         </div>
     );

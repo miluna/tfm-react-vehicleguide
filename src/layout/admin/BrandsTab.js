@@ -102,45 +102,48 @@ class BrandsTab extends Component {
         const {mappedBrands, selectedMode} = this.state;
 
         const modeSelector =
-            <div style={{marginTop: '1rem', marginBottom: '1rem', width: '85%'}}>
-                <label>Mode selector</label>
-                <Select id="modeSelector" className="is-primary" options={this.modeOptions} onChange={e => this.changeMode(e.target.value)} />
-            </div>;
+                <Select
+                    label="Mode selector"
+                    id="modeSelector"
+                    className="is-primary"
+                    options={this.modeOptions}
+                    onChange={e => this.changeMode(e.target.value)}
+                />;
         const brandSelector =
-            <div style={{marginTop: '1rem', marginBottom: '1rem', width: '85%'}}>
-                <label>Select a brand</label>
-                <Select id="modeSelector" className="is-success" options={mappedBrands} onChange={e => this.newSelectedBrand(e.target.value)} />
-            </div>;
+                <Select
+                    label="Select a brand"
+                    id="modeSelector"
+                    className="is-success"
+                    options={mappedBrands}
+                    onChange={e => this.newSelectedBrand(e.target.value)}
+                />;
         const nameInput =
-            <div style={{marginTop: '0.3rem', marginBottom: '0.3rem', width: '85%'}}>
-                <label>Name of the brand</label>
                 <Input
+                    label="Name of the brand"
                     className="admin-input is-fullwidth"
                     placeholder="Brand name"
                     value={('' + this.state.brand.name).slice(0)}
-                    onChange={e => this.updateName(e.target.value)}/>
-            </div>;
+                    onChange={e => this.updateName(e.target.value)}
+                />;
         const yearInput =
-            <div style={{marginTop: '0.3rem', marginBottom: '0.3rem', width: '85%'}}>
-                <label>Year of birth</label>
                 <Input
+                    label="Year of birth"
                     type="number"
                     className="admin-input is-fullwidth"
                     placeholder="Year of birth"
                     value={('' + this.state.brand.year).slice(0)}
-                    onChange={e => this.updateYear(e.target.value)}/>
-            </div>;
+                    onChange={e => this.updateYear(e.target.value)}
+                />;
         const countryInput =
-            <div style={{marginTop: '0.3rem', marginBottom: '0.3rem', width: '85%'}}>
-                <label>Year of birth</label>
                 <Input
+                    label="Year of birth"
                     className="admin-input is-fullwidth"
                     placeholder="Country"
                     value={('' + this.state.brand.country).slice(0)}
-                    onChange={e => this.updateCountry(e.target.value)}/>
-            </div>;
-            
-            
+                    onChange={e => this.updateCountry(e.target.value)}
+                />;
+
+        // Return based on selected mode
         switch (selectedMode.id) {
             case "add":
                 return (
@@ -187,6 +190,12 @@ class BrandsTab extends Component {
                         <br/>
                         <p style={{color: 'green'}}>{this.state.message}</p>
                         <p style={{color: 'red'}}>{this.state.error}</p>
+                    </div>
+                );
+            default:
+                return (
+                    <div className="tab-content">
+                        {modeSelector}
                     </div>
                 );
         }
