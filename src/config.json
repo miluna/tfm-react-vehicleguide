@@ -22,11 +22,6 @@
       "link": "/search",
       "icon": "search",
       "text": "Search"
-    },
-    {
-      "link": "/compare",
-      "icon": "car",
-      "text": "Compare"
     }
   ],
   "vehicleTypes": [

@@ -9,27 +9,24 @@ const ProductCard: FunctionComponent<Vehicle> = ({id, brand, engines, name, desc
         backgroundImage: imageUrl
     };
 
-    const title = brand ? `${brand.name} ${name} - ${year}` : `${name} - ${year}`;
+    const title = brand ? `${brand.name} ${name}` : `${name}`;
 
     return (
-        <section className="card">
-            sdfdbslgfijlhñjdsipjfidsuphgiupfdhgsdf
-            <div className="card-content product-grid">
+        <div className="product-container">
+            <div className="card-content product-grid centered">
                 <div className="product-image-container">
                     <div className="product-image" style={stl}/>
                 </div>
-
                 <div className="product-information">
-                    <h1 className="title">
-                        {title}
-                    </h1>
+                    <h1 className="subtitle">{title}</h1>
                     <p>{description}</p>
                     <br/>
-                    <p>{`Segment ${segment}`}</p>
-                    <p>{`Price starting at ${basePrice}`}</p>
+                    <p><strong>Year: {year}</strong></p>
+                    <p><strong>Segment: {segment}</strong></p>
+                    <p><strong>Price starting at: {basePrice}</strong></p>
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
 

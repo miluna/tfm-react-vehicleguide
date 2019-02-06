@@ -23,7 +23,7 @@ const Input : FunctionComponent<InputProps> =
                onKeyPress={onKeyPress}/>;
 
     return (
-        <div style={{marginTop: '0.3rem', marginBottom: '0.3rem', width: '85%'}}>
+        <div style={{marginTop: '1rem', marginBottom: '1rem', width: '85%'}}>
             {labelComponent}
             {inputComponent}
         </div>
