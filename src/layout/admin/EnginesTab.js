@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import EngineService from "../../services/EngineService";
 import Button from "../../components/Button";
 import Select from "../../components/Select";
+import Input from "../../components/Input";
+import config from "../../config";
 
 class EnginesTab extends Component {
     constructor(props) {
@@ -43,7 +45,7 @@ class EnginesTab extends Component {
     
     updateTurbo = (e) => {
         const {engine} = this.state;
-        engine.hasTurbo = e;
+        engine.hasTurbo = !engine.hasTurbo;
         this.setState({engine});
     };
     
@@ -87,7 +89,7 @@ class EnginesTab extends Component {
                     return {id: e.id, text: `${e.cylinders} cylinders ${e.displacement} cc ${e.horsepower} hp`}
                 });
                 mappedEngines.unshift({id: null, text: "None"});
-                this.setState({brands: result, mappedEngines})
+                this.setState({engines: result, mappedEngines})
             })
     };
     
@@ -118,30 +120,113 @@ class EnginesTab extends Component {
                 this.loadEngines();
             });
     };
-    
+
+    changeMode = (e) => {
+        const selected = this.modeOptions.filter(i => i.text === e)[0];
+        this.setState({selectedMode: selected})
+    };
+
     componentDidMount() {
         this.loadEngines();
     }
     
     render() {
         const {mappedEngines, selectedMode} = this.state;
-    
+        console.log(this.state.engine);
         const modeSelector =
-            <div style={{marginTop: '1rem', marginBottom: '1rem', width: '85%'}}>
-                <label>Mode selector</label>
-                <Select id="modeSelector" className="is-primary" options={this.modeOptions} onChange={e => this.changeMode(e.target.value)} />
-            </div>;
+                <Select
+                    id="modeSelector"
+                    label="Mode selector"
+                    className="is-primary"
+                    options={this.modeOptions}
+                    onChange={e => this.changeMode(e.target.value)}
+                />;
         const engineSelector =
-            <div style={{marginTop: '1rem', marginBottom: '1rem', width: '85%'}}>
-                <label>Select a brand</label>
-                <Select id="modeSelector" className="is-success" options={mappedEngines} onChange={e => this.newSelectedEngine(e.target.value)} />
-            </div>;
-        
+                <Select
+                    id="modeSelector"
+                    label="Select a brand"
+                    className="is-success"
+                    options={mappedEngines}
+                    onChange={e => this.newSelectedEngine(e.target.value)}
+                />;
+
+        const cylinderInput =
+            <Input
+                label="Cylinders"
+                className="admin-input is-fullwidth"
+                placeholder="Number of cylinders"
+                type="number"
+                value={('' + this.state.engine.cylinders).slice(0)}
+                onChange={e => this.updateCylinders(e.target.value)}
+            />;
+        const displInput =
+            <Input
+                label="Displacement"
+                className="admin-input is-fullwidth"
+                placeholder="Amount of displacement"
+                type="number"
+                value={('' + this.state.engine.displacement).slice(0)}
+                onChange={e => this.updateDisplacement(e.target.value)}
+            />;
+        const hpInput =
+            <Input
+                label="Horsepower"
+                className="admin-input is-fullwidth"
+                placeholder="Amount of horsepower"
+                type="number"
+                value={('' + this.state.engine.horsepower).slice(0)}
+                onChange={e => this.updateHorsepower(e.target.value)}
+            />;
+        const typeSelect =
+            <Select id="typeSelector" options={config.vehicleTypes} onChange={e => this.updateType(e.target.value)}/>;
+
+        const turboCheckBox =
+            <Input type="checkbox" label="Is turbocharged" checked={this.state.engine.hasTurbo} onChange={e => this.updateTurbo(e.target.value)}/>;
+
+        const pollutionInput =
+            <Input
+                label="Pollution"
+                className="admin-input is-fullwidth"
+                placeholder="Amount of pollution"
+                type="number"
+                value={('' + this.state.engine.pollution).slice(0)}
+                onChange={e => this.updatePollution(e.target.value)}
+            />;
+
+        const autonomyInput =
+            <Input
+                label="Autonomy"
+                className="admin-input is-fullwidth"
+                placeholder="Amount of km of autonomy"
+                type="number"
+                value={('' + this.state.engine.autonomy).slice(0)}
+                onChange={e => this.updateAutonomy(e.target.value)}
+            />;
+
+        const certificateInput =
+            <Input
+                label="Energy Certificate"
+                className="admin-input is-fullwidth"
+                placeholder="Energy certificate"
+                type="text"
+                value={('' + this.state.engine.energyCertificate).slice(0)}
+                onChange={e => this.updateEnergyCertificate(e.target.value)}
+            />;
+
+
         switch (selectedMode.id) {
             case "add":
                 return (
                     <div className="tab-content">
                         {modeSelector}
+                        {cylinderInput}
+                        {displInput}
+                        {hpInput}
+                        {typeSelect}
+                        {turboCheckBox}
+                        {autonomyInput}
+                        {pollutionInput}
+                        {certificateInput}
                         <br/>
                         {this.state.loading
                             ? <Button className="is-success is-loading" text="Add" onClick={this.addNewEngine}/>

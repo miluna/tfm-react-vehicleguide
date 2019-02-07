@@ -7,5 +7,6 @@ export default interface InputProps {
     value?: string, 
     onChange?: any, 
     onKeyPress?: any,
-    label?: string
+    label?: string,
+    checked?: boolean
 }
