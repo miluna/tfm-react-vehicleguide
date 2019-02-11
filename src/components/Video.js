@@ -2,7 +2,7 @@ import React from "react";
 
 const Video = ({className, source, width, height}) => {
     return (
-        <video className={className} width={width} height={height} muted autoPlay>
+        <video className={className} width={width} height={height} muted autoPlay loop>
             <source src={source} type="video/mp4"/>
         </video>
     );

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Brands from './BrandsTab';
-import Vehicles from './EnginesTab';
+import Vehicles from './VehiclesTab';
 import Engines from './EnginesTab';
 import {withRouter} from "react-router";
+import Button from "../../components/Button";
 
 
 class AdminPanel extends Component {
@@ -42,13 +43,16 @@ class AdminPanel extends Component {
                 <h2 className="title">Admin Panel</h2>
 
                 <div className="card tab-container">
-                    {tabs.map(e => {
-                        if (tabs[activeTabIndex].title === e.title) {
-                            return <button key={e.title} className="tab-panel tab-active">{e.title}</button>
-                        } else {
-                            return <button key={e.title} className="tab-panel tab-inactive" onClick={this.changeTab}>{e.title}</button>
-                        }
-                    })}
+                        <div className="tabs">
+                            {tabs.map(e => {
+                                if (tabs[activeTabIndex].title === e.title) {
+                                    return <Button key={e.title} className="is-active is-primary">{e.title}</Button>
+                                } else {
+                                    return <Button key={e.title} onClick={this.changeTab}>{e.title}</Button>
+                                }
+                            })}
+                        </div>
+
                     {tabs[activeTabIndex].content}
                 </div>
             </div>

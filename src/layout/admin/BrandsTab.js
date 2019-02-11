@@ -14,6 +14,7 @@ class BrandsTab extends Component {
             {id: "delete", text: "Delete a Brand"}
         ];
         this.state = {
+            mappedBrands: [],
             brands: [],
             brand: {name:"", year:0, country:""},
             selectedMode: this.modeOptions[0],

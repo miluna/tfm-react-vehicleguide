@@ -2,6 +2,7 @@ import React from 'react';
 import Button from "../components/Button";
 import Video from "../components/Video";
 import {Link} from "react-router-dom";
+import sourceVideo from "../media/videos/home_video_small.mp4"
 
 const SimpleHome = () => {
     return (
@@ -14,7 +15,7 @@ const SimpleHome = () => {
                             >Find The Vehicle Of Your Dreams</h1>
                             <Link to={"/search"}><Button type="primary is-success" size="large" text="Search"/></Link>
                         </div>
-                        <Video className="home-video" width={1280} height={720} source={null}/>
+                        <Video className="home-video" width={1280} height={720} source={sourceVideo}/>
                     </div>
                 </div>
             </section>

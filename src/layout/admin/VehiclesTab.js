@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import BrandService from "../../services/BrandService";
 import VehicleService from "../../services/VehicleService";
 import EngineService from "../../services/EngineService";
+import Select from "../../components/Select";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 class VehiclesTab extends Component {
     constructor(props) {
@@ -15,6 +18,8 @@ class VehiclesTab extends Component {
             {id: "delete", text: "Delete a Vehicle"}
         ];
         this.state = {
+            mappedBrands: [],
+            mappedVehicles: [],
             brands: [],
             engines: [],
             vehicles: [],
@@ -26,6 +31,12 @@ class VehiclesTab extends Component {
             loading: false
         }
     }
+
+    updateMainImage = (e) => {
+        const {vehicle} = this.state;
+        vehicle.mainImage = e;
+        this.setState({vehicle});
+    };
 
     updateName = (e) => {
         const {vehicle} = this.state;
@@ -83,6 +94,15 @@ class VehiclesTab extends Component {
             vehicle.brand.id = selected.id;
         }
         this.setState({vehicle})
+    };
+
+    newSelectedVehicle = (e) => {
+        if (e === "None") {
+            this.setState({vehicle: {}})
+        } else {
+            const selected = this.state.vehicles.filter(i => i.name === e)[0];
+            this.setState({vehicle: selected})
+        }
     };
 
     loadBrands = () => {
@@ -162,14 +182,175 @@ class VehiclesTab extends Component {
 
     componentDidMount() {
         this.loadBrands();
+        this.loadVehicles();
     }
 
     render() {
-        return (
-            <div>
+        const {mappedBrands, mappedVehicles, selectedMode} = this.state;
 
-            </div>
-        );
+        const modeSelector =
+            <Select
+                label="Mode selector"
+                id="modeSelector"
+                className="is-primary"
+                options={this.modeOptions}
+                onChange={e => this.changeMode(e.target.value)}
+            />;
+        const vehicleSelector =
+            <Select
+                label="Select a vehicle"
+                id="modeSelector1"
+                className="is-success"
+                options={mappedVehicles}
+                onChange={e => this.newSelectedVehicle(e.target.value)}
+            />;
+        const brandSelector =
+            <Select
+                label="Select a brand"
+                id="modeSelector2"
+                className="is-success"
+                options={mappedBrands}
+                onChange={e => this.newSelectedBrand(e.target.value)}
+            />;
+
+        const mainImageInput =
+            <Input
+                label="Main Image URL"
+                className="admin-input is-fullwidth"
+                placeholder="Main Image URL"
+                value={('' + this.state.vehicle.mainImage).slice(0)}
+                onChange={e => this.updateMainImage(e.target.value)}
+            />;
+        const nameInput =
+            <Input
+                label="Name of the vehicle"
+                className="admin-input is-fullwidth"
+                placeholder="Vehicle name"
+                value={('' + this.state.vehicle.name).slice(0)}
+                onChange={e => this.updateName(e.target.value)}
+            />;
+        const descrInput =
+            <Input
+                label="Description of the vehicle"
+                className="admin-input is-fullwidth"
+                placeholder="Description"
+                value={('' + this.state.vehicle.description).slice(0)}
+                onChange={e => this.updateDescription(e.target.value)}
+            />;
+        const yearInput =
+            <Input
+                label="Year of the model"
+                type="number"
+                className="admin-input is-fullwidth"
+                placeholder="Year"
+                value={('' + this.state.vehicle.year).slice(0)}
+                onChange={e => this.updateYear(e.target.value)}
+            />;
+        const weightInput =
+            <Input
+                label="Weight of the vehicle"
+                type="number"
+                className="admin-input is-fullwidth"
+                placeholder="Weight (kg)"
+                value={('' + this.state.vehicle.weight).slice(0)}
+                onChange={e => this.updateWeight(e.target.value)}
+            />;
+        const doorsInput =
+            <Input
+                label="Number of doors"
+                type="number"
+                className="admin-input is-fullwidth"
+                placeholder="Doors"
+                value={('' + this.state.vehicle.doors).slice(0)}
+                onChange={e => this.updateDoors(e.target.value)}
+            />;
+        const segmentInput =
+            <Input
+                label="Segment"
+                type="number"
+                className="admin-input is-fullwidth"
+                placeholder="Segment"
+                value={('' + this.state.vehicle.segment).slice(0)}
+                onChange={e => this.updateSegment(e.target.value)}
+            />;
+        const priceInput =
+            <Input
+                label="Base price of the model"
+                type="number"
+                className="admin-input is-fullwidth"
+                placeholder="Base price"
+                value={('' + this.state.vehicle.basePrice).slice(0)}
+                onChange={e => this.updateBasePrice(e.target.value)}
+            />;
+
+        // Return based on selected mode
+        switch (selectedMode.id) {
+            case "add":
+                return (
+                    <div className="tab-content">
+                        {modeSelector}
+                        {brandSelector}
+                        {mainImageInput}
+                        {nameInput}
+                        {descrInput}
+                        {yearInput}
+                        {weightInput}
+                        {doorsInput}
+                        {segmentInput}
+                        {priceInput}
+                        <br/>
+                        {this.state.loading
+                            ? <Button className="is-success is-loading" text="Add" onClick={this.addNewVehicle}/>
+                            :<Button className="is-success" text="Add" onClick={this.addNewVehicle}/>}
+                        <br/>
+                        <p style={{color: 'green'}}>{this.state.message}</p>
+                        <p style={{color: 'red'}}>{this.state.error}</p>
+                    </div>
+                );
+            case "edit":
+                return (
+                    <div className="tab-content">
+                        {modeSelector}
+                        {vehicleSelector}
+                        {brandSelector}
+                        {mainImageInput}
+                        {nameInput}
+                        {descrInput}
+                        {yearInput}
+                        {weightInput}
+                        {doorsInput}
+                        {segmentInput}
+                        {priceInput}
+                        <br/>
+                        {this.state.loading
+                            ? <Button className="is-primary is-loading" text="Update" onClick={this.updateVehicle}/>
+                            : <Button className="is-primary" text="Update" onClick={this.updateVehicle}/>}
+                        <br/>
+                        <p style={{color: 'green'}}>{this.state.message}</p>
+                        <p style={{color: 'red'}}>{this.state.error}</p>
+                    </div>
+                );
+            case "delete":
+                return (
+                    <div className="tab-content">
+                        {modeSelector}
+                        {vehicleSelector}
+                        <br/>
+                        {this.state.loading
+                            ? <Button className="is-danger is-loading" text="Delete" onClick={this.deleteVehicle}/>
+                            : <Button className="is-danger" text="Delete" onClick={this.deleteVehicle}/>}
+                        <br/>
+                        <p style={{color: 'green'}}>{this.state.message}</p>
+                        <p style={{color: 'red'}}>{this.state.error}</p>
+                    </div>
+                );
+            default:
+                return (
+                    <div className="tab-content">
+                        {modeSelector}
+                    </div>
+                );
+        }
     }
 }
 
