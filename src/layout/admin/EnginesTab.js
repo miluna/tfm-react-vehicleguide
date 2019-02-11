@@ -77,8 +77,23 @@ class EnginesTab extends Component {
         if (e === "None") {
             this.setState({engine: {}})
         } else {
-            const selected = this.state.engines.filter(i => i.name === e)[0];
-            this.setState({engine: selected})
+            const values = e.split(" ");
+            const cylinders = Number.parseInt(values[0]);
+            const displacement = Number.parseInt(values[2]);
+            const horsepower = Number.parseInt(values[4]);
+            const selected =
+                this.state.engines
+                    .filter(i =>
+                        i.cylinders === cylinders &&
+                        i.displacement === displacement &&
+                        i.horsepower === horsepower);
+
+            if (selected.length === 0) {
+                this.setState({engine: {}})
+            } else {
+                this.setState({engine: selected[0]})
+            }
+
         }
     };
     
@@ -132,7 +147,7 @@ class EnginesTab extends Component {
     
     render() {
         const {mappedEngines, selectedMode} = this.state;
-        console.log(this.state.engine);
+
         const modeSelector =
                 <Select
                     id="modeSelector"
@@ -241,6 +256,14 @@ class EnginesTab extends Component {
                     <div className="tab-content">
                         {modeSelector}
                         {engineSelector}
+                        {cylinderInput}
+                        {displInput}
+                        {hpInput}
+                        {typeSelect}
+                        {turboCheckBox}
+                        {autonomyInput}
+                        {pollutionInput}
+                        {certificateInput}
                         <br/>
                         {this.state.loading
                             ? <Button className="is-primary is-loading" text="Update" onClick={this.updateEngine}/>
@@ -260,6 +283,14 @@ class EnginesTab extends Component {
                             ? <Button className="is-danger is-loading" text="Delete" onClick={this.deleteEngine}/>
                             : <Button className="is-danger" text="Delete" onClick={this.deleteEngine}/>}
                         <br/>
+                        <p style={{color: 'green'}}>{this.state.message}</p>
+                        <p style={{color: 'red'}}>{this.state.error}</p>
+                    </div>
+                );
+            default:
+                return (
+                    <div className="tab-content">
+                        {modeSelector}
                         <p style={{color: 'green'}}>{this.state.message}</p>
                         <p style={{color: 'red'}}>{this.state.error}</p>
                     </div>

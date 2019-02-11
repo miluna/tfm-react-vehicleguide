@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import Logo from '../components/Logo';
 import {isUserAdmin, login, validateEmailAndPassword} from "../services/AuthService";
 import {withRouter} from "react-router";
 import ErrorMessage from '../models/Error';
@@ -67,6 +68,7 @@ class Login extends Component {
         else return (
             <div className="container" style={{marginTop: '2rem', marginBottom: '2rem'}}>
                 <div className="form card centered" style={{backgroundColor: '#f5f5f5'}}>
+                    <Logo black/>
                     <h3 className="Subtitle" style={{fontWeight: 600}}>Email</h3>
                     <Input
                         type="email"
