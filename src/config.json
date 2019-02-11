@@ -1,5 +1,5 @@
 {
-  "REST_BASE_URL": "http://localhost:5000",
+  "REST_BASE_URL": "http://ec2-52-213-70-3.eu-west-1.compute.amazonaws.com:5000",
   "HomeIcon": "home",
   "SearchIcon": "search",
   "CompareIcon": "bolt",

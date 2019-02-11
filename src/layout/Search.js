@@ -139,7 +139,7 @@ class Search extends Component {
         return (
             <div className="container">
                 <div style={{marginTop: '2rem', marginBottom: '2rem'}}>
-                    <div className="columns">
+                    <div className="columns centered" style={{alignItems: 'center'}}>
                         <div className="column">
                             <Input 
                                 placeholder="Name of the vehicle" 
